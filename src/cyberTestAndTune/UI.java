@@ -6,16 +6,14 @@ public class UI {
 
 	public static void main(String[] args) {
 		
+		UserInputProcess uip = new UserInputProcess();
+		Scanner s = new Scanner(System.in);
+		String userInput = "";
+		
 		while(true) {
-			
-			UserInputProcess uip = new UserInputProcess();
-			Scanner s = new Scanner(System.in);
-			
 			System.out.print("CyberTestAndTune> ");
-			
-			String userInput = s.nextLine();
+			userInput = s.nextLine();
 			uip.run(userInput.toUpperCase());
-			
 		}
 	}
 }

@@ -270,5 +270,4 @@ public class DirtSprintCar360 {
 	public void setRearEndRatio(double rearEndRatio) {
 		this.rearEndRatio = rearEndRatio;
 	}
-	
 }
