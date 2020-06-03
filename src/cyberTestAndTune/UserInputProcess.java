@@ -2,6 +2,7 @@ package cyberTestAndTune;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import practice.Practice;
 
 public class UserInputProcess {
 	
@@ -9,7 +10,7 @@ public class UserInputProcess {
 	
 	public void run(String command) {
 		ArrayList<String> args = new ArrayList<String>();
-		Scanner argInput = new Scanner(command);
+		Scanner argInput = new Scanner(command.toUpperCase());
 		
 		while (argInput.hasNext())
 			args.add(argInput.next());
@@ -36,29 +37,26 @@ public class UserInputProcess {
 						case 1:
 							help();
 							return;
+						case 2:
+							args.set(0, args.get(1));
+							args.remove(1);
+							processCommand(args);
+							return;
 						default:
-							switch(args.get(1)) {
-								case "HELP":
-									StringBuffer sHelp = new StringBuffer();		
-									sHelp.append("Provides help information for a command.\n\n");
-									sHelp.append("HELP [command]\n\n\t");
-									sHelp.append("command\t\tdisplays help information on that command.\n");
-									System.out.println(sHelp);
-									return;
-								default:
-									printError(args,1);
-									return;
-							}
+							args.remove(2);
+							processCommand(args);
+							return;
 					}
 				case "PRACTICE":
 					switch(args.size()) {
 						case 1:
-							StringBuffer sPractice = new StringBuffer();		
+							StringBuffer sPractice = new StringBuffer();
 							sPractice.append("Control the practice session.\n\n");
 							sPractice.append("PRACTICE [operand]\n\n");
 							sPractice.append("lapAdd\tAdd a lap to the practice session.\n");
 							sPractice.append("lapSet\tEdit a lap on the practice session.\n");
 							sPractice.append("new\tStart a new practice session.\n");
+							sPractice.append("tune\tEdit the car setup.\n");
 							System.out.println(sPractice);
 							return;
 						case 2:
@@ -81,6 +79,14 @@ public class UserInputProcess {
 								case "NEW":
 									practice = new Practice();
 									return;
+								case "TUNE":
+									StringBuffer sPracticeTune = new StringBuffer();
+									sPracticeTune.append("Edit the car setup.\n\n");
+									sPracticeTune.append("PRACTICE TUNE [part] [value]\n\n\t");
+									sPracticeTune.append("part\t\tPart to be tuned.\n");
+									sPracticeTune.append("value\t\tWhat to change the part to.\n");
+									System.out.println(sPracticeTune);
+									return;
 								default:
 									printError(args,1);
 									return;
@@ -93,6 +99,14 @@ public class UserInputProcess {
 									} catch(NumberFormatException e) {
 										printError(args,2);
 									}
+									return;
+								case "TUNE":
+									StringBuffer sPracticeTune = new StringBuffer();
+									sPracticeTune.append("Edit the car setup.\n\n");
+									sPracticeTune.append("PRACTICE TUNE [part] [value]\n\n\t");
+									sPracticeTune.append("part\t\tPart to be tuned.\n");
+									sPracticeTune.append("value\t\tWhat to change the part to.\n");
+									System.out.println(sPracticeTune);
 									return;
 								default:
 									printError(args,1);
@@ -117,6 +131,14 @@ public class UserInputProcess {
 									}
 									if (lap > 0 && time >= 0)
 										practice.setLapTime(lap, time);
+									return;
+								case "TUNE":
+									try {
+										practice.tune(args.get(2), Double.parseDouble(args.get(3)));
+									} catch(NumberFormatException e) {
+										printError(args,3);
+										return;
+									}
 									return;
 								default:
 									printError(args,1);
