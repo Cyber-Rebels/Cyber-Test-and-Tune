@@ -9,7 +9,10 @@ public class Practice {
 	private ArrayList<Double> lapTimes = new ArrayList<Double>();
 	
 	//Cars
-	DirtSprintCar360 dirtSprintCar360 = new DirtSprintCar360();
+	DirtSprintCar dirtSprintCar305 = new DirtSprintCar();
+	DirtSprintCar dirtSprintCar360 = new DirtSprintCar();
+	DirtSprintCar dirtSprintCar410 = new DirtSprintCar();
+	NascarCupSeriesFordMustang nascarCupSeriesFordMustang = new NascarCupSeriesFordMustang();
 	
 	public void addLap(Double time) {
 		lapTimes.add(time);
